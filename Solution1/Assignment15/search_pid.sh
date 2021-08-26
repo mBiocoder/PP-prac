@@ -1,7 +1,4 @@
 #!/bin/bash
-#Author: Mahima Arunkumar
-#Date: 02.03.2021
-#Modified Date: 03.03.2021
 #search_pid.sh
 #main functtion to plot each value from outfile in gnuplot to visualize with lines
 
