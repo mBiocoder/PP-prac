@@ -1,0 +1,20 @@
+{% include 'generic_header.html' %}
+
+{%if swiss_output %}
+
+    <pre>
+<div style = "font-size:15px; position:relative; left:70px; top:160px; font-family: Helvetica, sans-serif">
+<p>Sequence:</p>
+{{swiss_output}}
+    </pre>
+
+{% else %}
+
+<div style = "position:relative; left:70px; top:100px; font-family: Helvetica, sans-serif">      
+{{form}}
+</div>
+
+{% endif %}
+
+
+{% include 'generic_footer.html' %}

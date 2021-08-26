@@ -1,0 +1,30 @@
+h1 { 
+       background-color: grey;
+       color: white;
+	   font-family: Helvetica, sans-serif;
+}
+
+#groupinfo {
+	float: right;
+	font-family: Helvetica, sans-serif;
+	width: 300px;
+	border: 15px lightblue;
+	padding: 30px;
+	margin: 10px;
+    text-align: left; 
+}
+
+#members, #number, #supervisors {
+	font-weight: bold;
+	font-family: Helvetica, sans-serif;
+}
+
+
+#listlinks {
+	font-weight: bold;
+	list-style-type: none;
+	font-family: Helvetica, sans-serif;
+	margin: 0;
+	padding: 0;
+}
+

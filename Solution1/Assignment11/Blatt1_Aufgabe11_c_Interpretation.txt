@@ -1,0 +1,28 @@
+Aufgabe 1
+Teilaufgabe c)
+
+Aus den Daten ist ersichtlich, dass sowohl beim Mensch als auch bei Mycobacterium tuberculosis
+der A & T Anteil und der C & G Anteil ungefähr gleich gross sind.
+
+Aus dem fold change geht hervor wie haeufig die jeweilige Sequenz auftritt im Vergleich zum 
+erwarteten Auftreten. ein foldchange von 1.0 gibt an, dass die Sequenz genauso oft auftritt,
+wie man es durch Zufall erwarten wuerde. ist der fold change hoeher tritt die Sequenz auffallend
+haeufig auf, was darauf zurueckzufuehren ist, dass die Sequenz in irgendeiner Form biologisch
+signifikant ist.
+
+CTAG kommt in beiden Organismen unterdurchschnittlich haeufig vor. CTAG ist noch dazu ein 
+Palindrom.
+
+CG kommt in MT etwas haefiger vor als es erwartet wird, waehrend es im Menschen sehr selten
+vorkommt, dafuer, dass es so eine kurze Sequenz ist.
+
+AACCCTGTC kommt in MT selten vor waehrend es im menschlichen Genom sehr haeufig auftrit. Das 
+laesst vermuten, dass AACCCTGTC eine wichtige Sequenz ist, die haeufig wiederholt wird. Das 
+koennte daran liegen, dass es eine Proteinbindestelle darstellt fuer ein Protein, dass haeufig 
+an den DNA Strang bindet. Alternativ koennte diese Sequenz auch eine Region darstellen, die
+fuer Aminosaeuren kodiert, die in vielen Proteinen vorkommen und deswegen so oft wiederholt
+wird.
+
+ATG kommt im Menschen erwartbar haeufig vor woraus sich wenig ableiten laesst waehrend es in
+MT leicht ueberdurchschnittlich auftritt.
+

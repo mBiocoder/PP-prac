@@ -1,0 +1,41 @@
+What does ChIP-Seq mean?
+Chromatin Immunoprecipitation by Sequencing -> identify where regulators (TFs) bind to the genome 
+1) Cross link cells & purify DNA from cross linked cells.
+2) Isolate Chromatin material and wind up with pieces of DNA with proteins occupying. 
+3) Sonication: Use ultrasound waves in solution to shear DNA. 
+4) Immunoprecipitation: Immunopurify small fragments with an antibody. (Antibody to a protein of interest) 
+5) Reverse cross linking & DNA purification.
+-> sequencing every fragment with NGS to find the binding sites of the regulators 
+
+ChIP -> Sequence -> Mapping -> Signal Map -> Peak Detection -> Analysis 
+
+
+
+What does RNA-Seq mean?
+Determination of the nucleotide sequence of RNA
+1) Isolate mRNA from a cell 
+2) Perform the reverse transcriptase polymerase chain reaction (RT-PCR). Now we are reverse engineering the DNA template that would have generated the mRNA.
+3) DNA polymerase begins to synthesize the other complementary DNA strand. -> The cDNA is built. 
+
+
+What does NFKB stand for?
+- NFKB = Nuclear Factor kappa B
+
+
+What does Pol2 stand for?
+RNA polymerase II is the enzyme responsible for the synthesis of mRNA and many non-coding RNAs 
+POLR2A encodes RNA polymerase II subunit B1 (RPB1), the largest subunit of RNA polymerase II
+(https://www.thermofisher.com/antibody/gene/pol2#)
+
+
+What does H3K27me3 stand for? 
+H3: for H3 family of histones
+K: standard abbreviation for lysine
+27: position of amino acid residue (counting form N-terminus)
+me: methyl group
+3: number of methyl groups added 
+-> epigenetic modification to the DNA packaging protein Histone H3 
+(https://en.wikipedia.org/wiki/H3K27me3)
+
+
+

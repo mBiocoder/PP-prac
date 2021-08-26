@@ -1,0 +1,20 @@
+{% include 'generic_header.html' %}
+
+{%if pat_output %}
+
+    <pre>
+<div style = "position:relative; left:70px; top:110px; font-family: Helvetica, sans-serif">
+<p>Observed patterns:</p>
+{{pat_output}}
+    </pre>
+
+{% else %}
+
+<div style = "position:relative; left:70px; top:100px; font-family: Helvetica, sans-serif">      
+{{form}}
+</div>
+
+{% endif %}
+
+
+{% include 'generic_footer.html' %}

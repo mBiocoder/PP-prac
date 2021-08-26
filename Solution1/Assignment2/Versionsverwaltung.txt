@@ -1,0 +1,39 @@
+Versionsverwaltung_Aufgabe2: 
+
+Aufgabenstellung:
+Zeigen Sie zu Beginn Ihres Projekts Ihren Betreuern, wie Sie auf der Kommandozeile den aktuellen Stand abrufen, eine neue Datei dem Projekt hinzufügen, diese ändern und die Änderungen im Projekt festhalten. Teilen Sie anschließend diese Änderung mit den anderen Gruppenmitgliedern. 
+(Projekt = Repository) 
+
+auf der Kommandozeile den aktuellen Stand:
+git status -> sehen, ob alle Dateien auch zum Repository geaddet, committet und gepushet wurden 
+
+eine neue Datei dem Projekt hinzufügen:
+
+1) mit scp in das Verzeichnis laden:
+scp <filename>  <user>@host.cip.ifi.lmu.de:/mnt/biocluster/praktikum/bioprakt/progprakt-e/Solution<x>/Assignment<y>
+
+oder direkt im Terminal erstellen:
+
+cat > <filename> (und ggf. Rechte auf chmod -R 775 <filename> setzen) (bspw. sample.txt)
+ggf. mit cp bzw. mv in den richtigen Ordner legen 
+
+(https://www.shellbefehle.de/befehle/cp/)
+(https://www.shellbefehle.de/befehle/mv/)
+
+2) (man befindet sich im Verzeichnis der Datei, also: /mnt/biocluster/praktikum/bioprakt/progprakt-e/Solution<x>/Assignment<y>)
+git add <filename>
+git commit -m <“Message“>
+git push 
+(less <filename>: Anzeige der Datei)
+
+Datei ändern:
+nano <filename>
+^X (zum Verlassen)
+
+Änderung im Projekt festhalten & Datei mit den anderen Gruppenmitgliedern teilen:
+(man befindet sich im Verzeichnis der Datei, also: /mnt/biocluster/praktikum/bioprakt/progprakt-e/Solution<x>/Assignment<y>)
+git pull
+git add <filename>
+git commit -m <“Message“>
+git push
+

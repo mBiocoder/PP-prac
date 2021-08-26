@@ -1,0 +1,5 @@
+1) Das zugrundeliegende Genom kann SARS-Cov-2 zugeordnet werden, insbesondere enthaelt es das charakteristische Spike Protein.
+
+2) Anzahl durchsuchter Sequenzen: 68,013,622.
+
+3) E-Value bezeichnet den expectation value, d.h. den Anteil der Alignments, die bei einer Suche mit einer zufaellig gewaehlten Sequenz mindestens genauso gut miteinander aligniert wuerden wie die Sequenz, auf deren Basis gesucht wird. Analog zum p-Wert gilt, dass ein niedrigerer e-value auf eine hoehere statistische Signifikanz des Alignments hinweist.
