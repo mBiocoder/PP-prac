@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# --id "4YBV" --length 3 --distance 5 --type "CE1" --output "C:/Users/leona/OneDrive/Desktop"
+# --id "4YBV" --length 3 --distance 5 --type "CE1" --output "C:/Users/someUser"
 
 import argparse as ap
 import sys, os
