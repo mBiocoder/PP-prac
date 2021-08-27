@@ -1,0 +1,20 @@
+Aufgabe 13:
+
+1) Bowtie verwenden (Software/bowtie-1.2.2/indexes/hg19), um mögliche Off-Targets der CRISPR/Cas Erkennungssequenzen im menschlichen Genom (hg19) zu finden:
+
+	- wir laden /Data/Genomes/hs_chr08.fna (das menschliche Chromosom 08) 
+	- wir wenden auf diese fast Datei das Programm get_crispr.py an, um alle Erkennungssequenzen in einer Fast Datei zu erhalten 
+
+2) in der Referenz zu Bowtie über dessen Parameter informieren:
+
+	- '-v' bedeutet, dass die alignments nicht mehr als v mismatches haben, wobei v eine Zahl zwischen 0 und 3 (inklusive 0&3) sein muss
+	- '--fasta' bedeutet, dass wir die Erkennungssequenzen aus 1) auf Bowtie hier anwenden 
+	- '--sam' beschreibt einen bestimmten Filtype (inkludiert den Namen der Sequenz, die Sequenz, MD (= Anzahl an Mismatches in einem Alignment)
+
+3) nach menschlichen Sequenzen mit maximal 3 Mismatches zu den Erkennungssequenzen aus Aufgabe 9 suchen 
+
+	- ausgeführt und alle ORFs erhalten (lokal auf dem Rechner) 
+
+4) wie haben wir Bowtie aufgerufen
+
+	- Software/bowtie-1.2.2/

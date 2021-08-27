@@ -1,0 +1,2 @@
+#version based on jmol standard feature
+select protein; cartoon on; color structure;

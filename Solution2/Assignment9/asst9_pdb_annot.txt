@@ -1,0 +1,9 @@
+#version based on .pdb annotations
+select protein; cartoon on;
+select HELIX; color blue;
+select SHEET; color red;
+select TURN; color yellow;
+
+#Vergleich: Stadardeinstellung vs. annotationsbasierter Ansatz: 
+#annotationsbasierter Ansatz ermoeglicht flexiblere Auswahl der einzufaerbenden Regionen, rein optisch ist der
+#Output aequivalent zu dem der Standardeinstellungen

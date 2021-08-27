@@ -1,0 +1,25 @@
+mysql -h mysql2-ext.bio.ifi.lmu.de -u biopraktE -p
+
+Passwort: JuM3IZy.8SC0c
+
+Kommandos auf MariaDB:
+use biopraktE;
+show tables;
+describe keywords;
+
+Python:
+connection = pymysql.connect(host="mysql2-ext.bio.ifi.lmu.de", user ="biopraktE" , passwd="JuM3IZy.8SC0c" , database="biopraktE")
+
+cursor= connection.cursor()
+query = """select """;
+
+try:
+    cursor.execute(query);
+    print("Query was executed successfully!");
+
+except Exception as e:
+    print("Exception occured" + e);
+
+connection.close();
+
+

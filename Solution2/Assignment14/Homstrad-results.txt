@@ -1,0 +1,15 @@
+# SQL Kommando: select count(distinct family) from alignment;
+Answer 1: 1029
+
+# SQL Kommando: select count(*) from alignment; --> 3458
+# SQL Kommando: select count(distinct alignment_text) from alignment; --> 3079
+Answer 2: 3456 3079
+
+# fuer jedes Protein rausfinden wie oft es in der DB vorkommt:
+# select distinct a1.alignment_text, count(a2.alignment_text) as vorkommen from alignment a1, alignment a2 where a1.alignment_text = a2.alignment_text group by a1.alignment_text;
+# create view v1 as ( select distinct a1.alignment_text, count(a2.alignment_text) as vorkommen from alignment a1, alignment a2 where a1.alignment_text = a2.alignment_text group by a1.alignment_text );
+#select count(alignment_text), vorkommen from v1 group by vorkommen;
+Answer 3: (1: 2884x, 4: 56x, 9: 110x, 16: 18x, 25: 6x, 36: 5x)
+
+# select * from v1 where vorkommen in ( select max(vorkommen) from v1 ) ;
+Answer 4: (1qhpa: 36)   (1d3ca: 36) (1cyg: 36)  (1ciu: 36)  (1cgt: 36)

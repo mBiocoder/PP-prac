@@ -1,0 +1,26 @@
+Referenz fuer das Arbeiten mit JMol
+-----------------------------------
+
+--Funktionen zur Darstellung und Selektion:
+
+BEFEHL (beispielhafte Auswahl)		FUNKTION
+
+select protein; cartoon on		Selektion der jeweiligen Struktur (hier Protein) und Umwandlung in 					Cartoon-Format 
+select nucleic; color blue 		Selektion analog oben und Faerbung der gesamten Struktur
+select all; spacefill			sphaerische Darstellung von Atomen
+select protein; backbone;		Zeigt Backbone von Protein an		
+select atomno >= 195 and atomno 	Selektion einer Menge von Atomen und entsprechendes Faerben
+<= 500; color yellow			
+select *.cg  				Kohlenstoffe in Gamma-Stellung
+select hydrophobic			Selektion hydrophober Atome in Protein
+
+weitere Ressourcen:
+https://chemapps.stolaf.edu/jmol/docs/
+http://wiki.jmol.org/index.php/Jmol_Tutorials
+https://biosci.mcdb.ucsb.edu/biochemistry/info/scriptguide.htm
+
+--Visualisierung als .png-Datei speichern:
+
+write image png <filename>.png
+
+
