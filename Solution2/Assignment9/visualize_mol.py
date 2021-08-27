@@ -14,7 +14,7 @@ args = parser.parse_args()
 seqid = args.id
 
 #run subprocess to generate
-sub1 = subprocess.run("python get_pdb_back.py --id %s --output C:/Users/hanna/propra/blockteil1" %seqid, shell=True)
+sub1 = subprocess.run("python get_pdb_back.py --id %s --output C:/Users/someUser" %seqid, shell=True)
 
 #check whether secondary structure should be color-highlighted
 if args.colourized == False:
