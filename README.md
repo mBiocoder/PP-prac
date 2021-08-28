@@ -21,4 +21,4 @@ AlignmentNW class (very similar for SW and Gotoh):
 5.  public void processSequences(String  matrices, String format, boolean check, String dpmatrices)
 6.  PrintMatrix() 
 
-
+Benchmarking and Validation are included as well.
