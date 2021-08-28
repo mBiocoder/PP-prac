@@ -1,0 +1,165 @@
+import java.util.HashMap;
+
+public class GotohFreeshift {
+    String seq1 = " ";
+    String seq2 = " ";
+
+    public GotohFreeshift(String sequence1, String sequence2) {
+        seq1 = sequence1;
+        seq2 = sequence2;
+
+        rows = seq1.length() +1;
+        columns = seq2.length() +1;
+
+        insertion = new float[rows][columns-1];
+        deletion = new float[rows-1][columns];
+        optAlignFree = new float[rows][columns];
+    }
+
+    private float [][] insertion;
+    private float [][] deletion;
+    private float [][] optAlignFree;
+    private int rows;
+    private int columns;
+
+    //go und ge in der command line gegeben
+    int go;
+    int ge;
+    int MATCH = 3;
+    int MISMATCH = -2;
+
+
+    //fill deletion matrix
+    public float[][] fillDeletion(){
+        for (int row=0; row < (rows-1); row++ ){
+            for (int column=0; column < columns; row++){ //keine 0.row, da für Deletion Matrix die 0.Zeile nicht definiert ist
+                deletion[row][0] = Integer.MIN_VALUE;//initialisation of 0.column (= -Inf)
+                //deletion[row][0] = optAlign[row][0] // -> -Inf: für Zeile 1 wird immer der Wert aus A benutzt
+                float leftAlign = optAlignFree[row][column-1] + go + ge; // A(i,j-1)+go+ge
+                float leftDel = deletion[row][column-1]+ge;
+
+                deletion[row][column] = Math.max(leftAlign, leftDel);
+            }
+        }
+        return deletion;
+    }
+
+    //fill insertion matrix
+    public float[][] fillInsertion(){
+        for (int row=0; row < rows; row++ ){
+            for (int column=0; column < (columns-1); row++){ //keine 0.column, da für Insertion Matrix die 0.Spalte nicht definiert ist
+                insertion[0][column] = Integer.MIN_VALUE; //initialisation of 0.row (= -Inf)
+                //insertion[0][column] = optAlign[0][column] // -> -Inf: für Zeile 1 wird immer der Wert aus A benutzt
+                float upAlign = optAlignFree[row-1][column] + go +ge; // A(i-1,j)+go+ge
+                float upInser = insertion[row-1][column] + ge; // I(i-1,j)+ge
+                insertion[row][column] = Math.max(upInser, upAlign);
+            }
+        }
+        return insertion;
+    }
+
+    public float[][] optAlign(){
+        insertion = fillInsertion();
+        deletion = fillDeletion();
+
+        optAlignFree[0][0] = 0;
+
+
+        for (int column= 1; column < columns; column++){
+            optAlignFree[0][column] = 0; //A(0,k) = 0*k
+        }
+
+        for (int row= 1; row < rows ; row++){
+            optAlignFree[row][0] = 0; // A(k,0) = 0*k
+        }
+
+        for (int row=0; row < rows; row++){
+            for (int column=0; column < columns; column++){
+                int matchValue;
+                //if the chars in that psoition match for both strands, set the matchmalue to match, else to mismatch
+                if (seq1.charAt(row -1) == seq2.charAt(column -1)) {
+                    matchValue = MATCH; //bzw. SCORE !!! aus dayhoff Matrix !!!
+                }
+                else {
+                    matchValue = MISMATCH;
+                }
+                float diagonal = optAlignFree[row-1][column-1] + matchValue; // A(i-1,j-1) + s(si, ti)
+                float del = deletion[row][column]; // D(i,j)
+                float ins = insertion[row][column]; // I(i,j)
+
+                optAlignFree[row][column] = Math.max(Math.max(Math.max(diagonal, del), ins), 0);
+
+            }
+        }
+        return optAlignFree;
+    }
+
+    public float getScoreGotohFree(){
+        float maxScore = 0;
+        for(int row=0; row<rows; row++){
+            for(int column=0; column<columns; column++){
+                if(row==rows || column==columns){ //find max score in last column/last row
+                    if (optAlignFree[row][column]>maxScore){
+                        maxScore = optAlignFree[row][column];
+                    }
+                }
+            }
+        }
+        return maxScore;
+    }
+
+    public float checkscoreFree(HashMap<Pair, Float> scoreMatrix, String seq1, String seq2, float score) {
+        String[] outputStrands = {seq1, seq2};
+
+        float matchValue = 0;
+        float checkscore = 0;
+        int firstMatch = 0;
+        int lastMatch = 0;
+        boolean gapSeq1 = false;
+        boolean gapSeq2 = false;
+
+
+        for (int index = 0; index < outputStrands[0].length(); index++) {
+            if (outputStrands[0].charAt(index) != '-' && outputStrands[1].charAt(index) != '-') {
+                firstMatch = index;
+            }
+        }
+
+        for (int revIndex = (outputStrands[0].length() - 1); revIndex > 0; --revIndex) {
+            if (outputStrands[0].charAt(revIndex) != '-' && outputStrands[1].charAt(revIndex) != '-') {
+                lastMatch = revIndex;
+            }
+        }
+
+        for (int i = lastMatch; i < firstMatch; i++) {
+            if (outputStrands[0].charAt(i) == '-') {
+                if (!gapSeq1) {
+                    checkscore += go + ge;
+                    gapSeq1 = true;
+                    gapSeq2 = false;
+                } else {
+                    checkscore += ge;
+                }
+            } else if (outputStrands[1].charAt(i) == '-') {
+                if (!gapSeq2) {
+                    checkscore += go + ge;
+                    gapSeq2 = true;
+                    gapSeq1 = false;
+                } else {
+                    checkscore += ge;
+                }
+            } else {
+                String asSeq1 = String.valueOf(outputStrands[0].charAt(i));
+                String asSeq2 = String.valueOf(outputStrands[1].charAt(i));
+
+                Pair substPair = new Pair(asSeq1, asSeq2);
+                matchValue = scoreMatrix.get(substPair);
+                checkscore += matchValue;
+                gapSeq1 = false;
+                gapSeq2 = false;
+            }
+        }
+
+        return checkscore;
+    }
+    }

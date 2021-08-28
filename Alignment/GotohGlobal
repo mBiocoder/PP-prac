@@ -1,0 +1,233 @@
+import java.util.HashMap;
+
+public class GotohGlobal {
+
+    String seq1 = " ";
+    String seq2 = " ";
+
+    public int go = -10;
+    public int ge = -2;
+
+    public GotohGlobal(String sequence1, String sequence2) {
+        seq1 = sequence1;
+        seq2 = sequence2;
+
+        rows = seq1.length() +1;
+        columns = seq2.length() +1;
+
+        insertion = new float[rows][columns];
+        deletion = new float[rows][columns];
+        optAlignGlob = new float[rows][columns];
+    }
+
+    float [][] insertion;
+    float [][] deletion;
+    float [][] optAlignGlob;
+    int rows;
+    int columns;
+
+
+    //go und ge in der command line gegeben
+
+
+    float matchValue;
+
+
+    public float[][] findSolutionMatrix(String matrices){
+        insertion[0][0] = 0;
+        deletion[0][0] = 0;
+        optAlignGlob[0][0] = 0;
+
+        for (int row=1; row<rows; row++){
+            deletion[row][0] = Integer.MIN_VALUE;
+            insertion[row][0] = Integer.MIN_VALUE;
+            optAlignGlob[row][0] = go + ge*row; // A(k,0) = g(k) = go+ge*k
+        }
+
+        for (int column=1; column<columns; column++){
+            deletion[0][column] = Integer.MIN_VALUE;
+            insertion[0][column] = Integer.MIN_VALUE;
+            optAlignGlob[0][column] = go + ge*column; // A(k,0) = g(k) = go+ge*k
+        }
+
+        Matrices matrix = new Matrices();
+        HashMap<Pair, Float> scorematrix = matrix.getscoreMatrices(matrices);
+
+        for(int row=1; row < rows; row++){
+            for(int column=1; column < columns; column++) {
+
+                String asSeq1 = String.valueOf(seq1.charAt(row - 1));
+                String asSeq2 = String.valueOf(seq2.charAt(column - 1));
+                if (scorematrix.containsKey(new Pair(asSeq1, asSeq2))) {
+                    matchValue = (float) scorematrix.get(new Pair(asSeq1, asSeq2));
+                } else if (scorematrix.containsKey(new Pair(asSeq2, asSeq1))) {
+                    matchValue = (float) scorematrix.get(new Pair(asSeq2, asSeq1));
+                } else {
+                    matchValue = Float.MIN_VALUE;
+                }
+
+                if (matchValue != Float.MIN_VALUE) {
+
+
+                    insertion[row][column] = Math.max(optAlignGlob[row - 1][column] + go + ge, insertion[row - 1][column] + ge);
+                    deletion[row][column] = Math.max(optAlignGlob[row][column - 1] + go + ge, deletion[row][column - 1] + ge);
+                    optAlignGlob[row][column] = Math.max(Math.max(optAlignGlob[row - 1][column - 1] + matchValue, insertion[row][column]), deletion[row][column]);
+                }
+            }
+        }
+        return optAlignGlob;
+    }
+
+    public float getScoreGotohGlob(){
+        return optAlignGlob[rows-1][columns-1];
+    }
+
+    //Tracebackmatrix
+    public String[] findTraceback(String seq1, String seq2){
+        seq1 = " " + seq1;
+        seq2 = " " + seq2;
+
+        String alignedStrand1 = "";
+        String alignedStrand2 = "";
+
+        int row = seq1.length()-1 ;
+        int column = seq2.length()-1;
+
+
+        //while not reached top left corner of solution matrix, do the following:
+        while (row > 0 | column > 0){
+
+
+            if ( Math.abs(optAlignGlob[row][column] - (deletion[row][column])) < 0.0001|| row == 0){
+
+                int extension = -1;
+                for(int k=1; k<=column; k++){
+                    if(Math.abs(optAlignGlob[row][column-k] +go+ge*k - optAlignGlob[row][column]) < 0.0001){
+                        extension = k;
+                    }
+                }
+
+                alignedStrand1 = "-".repeat(extension) + alignedStrand1;
+
+                for(int ex=0; ex<extension; ex++){
+                    alignedStrand2 = seq2.charAt(column) + alignedStrand2;
+                    column = column-1;
+                }
+
+                continue;
+
+            } else if ( Math.abs(optAlignGlob[row][column] - (insertion[row][column])) < 0.0001|| column == 0){
+                int extension = -1;
+                for (int k=1; k<=row; k++){
+                    if(Math.abs(optAlignGlob[row-k][column]+go+ge*k - optAlignGlob[row][column]) < 0.0001){
+                        extension = k;
+                    }
+                }
+
+                alignedStrand2 = "-".repeat(extension) + alignedStrand2;
+
+                for (int ex=0; ex<extension; ex++){
+                    alignedStrand1 = seq1.charAt(row) + alignedStrand1;
+                    row = row-1;
+                }
+
+                continue;
+            } else {
+                alignedStrand2 = seq2.charAt(column) + alignedStrand2;
+                alignedStrand1 = seq1.charAt(row) + alignedStrand1;
+
+                row = row -1;
+                column = column -1;
+            }
+
+        }
+
+        return new String[] {alignedStrand1, alignedStrand2};
+    }
+
+    public void printAlignment(String seq1, String seq2){
+        String [] alignment = findTraceback(seq1, seq2);
+        System.out.println(alignment[0] + "\n");
+        System.out.println(alignment[1] + "\n");
+        //System.out.println(Arrays.toString(alignment));
+
+
+    }
+
+    //checkscore GotohGlobal
+    public float checkscoreGotohGlob(HashMap<Pair, Float> scoreMatrix, String seq1, String seq2, float score){
+        String[] outputStrands = {seq1, seq2};
+        float matchedScore = 0;
+        float matchValue = 0;
+        float checkscore = 0;
+        boolean gapSeq1 = false;
+        boolean gapSeq2 = false;
+
+        for(int index=0; index<outputStrands[0].length(); index++){
+            if (outputStrands[0].charAt(index) == '-'){
+                if (!gapSeq1){
+                    checkscore += go+ge;
+                    gapSeq1 = true;
+                    gapSeq2 = false;
+                } else {
+                    checkscore += ge;
+                }
+            } else if (outputStrands[1].charAt(index) == '-'){
+                if (!gapSeq2){
+                    checkscore += go+ge;
+                    gapSeq2 = true;
+                    gapSeq1 = false;
+                } else {
+                    checkscore += ge;
+                }
+            } else {
+                String asSeq1 = String.valueOf(outputStrands[0].charAt(index));
+                String asSeq2 = String.valueOf(outputStrands[1].charAt(index));
+
+                Pair substPair = new Pair(asSeq1, asSeq2);
+                matchValue = scoreMatrix.get(substPair);
+                matchedScore += matchValue;
+                checkscore += matchValue;
+                gapSeq1 = false;
+                gapSeq2 = false;
+            }
+        }
+        System.out.println(matchedScore);
+        return checkscore;
+    }
+
+
+    /*public static void main(String[] args) {
+        Alignment alignmentgeneral = new Alignment();
+        String seq1 = "GPLDVQVTEDAVRRYLTRKPMTTKDLLKKFQTKKTGLSSEQTVNVLAQILKRLNPERKMINDKMHFSLK";
+        String seq2 = "MEEAKQKVVDFLNSKSKSKFYFNDFTDLFPDMKQREVKKILTALVNDEVLEYWSSGSTTMYGLKG";
+
+        GotohGlobal gotohglobal = new GotohGlobal(seq1, seq2);
+        Alignment alignment = new Alignment();
+        gotohglobal.findSolutionMatrix();
+        System.out.println(gotohglobal.getScoreGotohGlob() + "\t" + alignmentgeneral.averageSequenceLength(seq1, seq2));
+        //alignment.printDPMatrix(seq1, seq2, gotohglobal.optAlignGlob);
+        //alignment.printDPMatrix("EEKRNRAITARRQHLKSVMLQIAATELEKE", "GERRRSQLDRDQCAYCKEKGHWAKDCPKKPRGPRGPRPQ", gotohglobal.insertion);
+        //alignment.printDPMatrix("EEKRNRAITARRQHLKSVMLQIAATELEKE", "GERRRSQLDRDQCAYCKEKGHWAKDCPKKPRGPRGPRPQ", gotohglobal.deletion);
+
+        gotohglobal.findTraceback(seq1, seq2);
+        gotohglobal.printAlignment(seq1, seq2);
+
+        Matrices matrix = new Matrices();
+        HashMap<Pair, Float> scoreMatrix = matrix.getscoreMatrices();
+
+        gotohglobal.findSolutionMatrix();
+        System.out.println(gotohglobal.getScoreGotohGlob() + "\t" + alignmentgeneral.averageSequenceLength(seq1, seq2));
+
+        String[] alignedSequences = gotohglobal.findTraceback(seq1, seq2);
+        float alignedScore = gotohglobal.getScoreGotohGlob();
+        gotohglobal.printAlignment(seq1, seq2);
+        float checkScore = gotohglobal.checkscoreGotohGlob(scoreMatrix, alignedSequences[0], alignedSequences[1],alignedScore);
+        System.out.println(alignedScore+ " " + checkScore);
+    }*/
+
+
+
+
+}
+

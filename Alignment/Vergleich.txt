@@ -1,0 +1,212 @@
+Inhalt:
+1) Applications of String Matching in Computational Science/biology
+2) Different types of alignments
+3) Gap penalties
+4) Needleman-Wunsch algorithm
+5) Smith-Waterman algorithm
+6) Smith-Waterman Freeshift algorithm 
+7) Differences NW, SW and SW Freeshift
+8) Gotoh global algorithm
+9) Gotoh Local algorithm
+10) Gotoh Freeshift algorithm 
+
+______________________________________
+
+
+1) Applications of String Matching in Computational Science/biology:
+- searching for sequence features like binding sites
+(- searching sequence data bases ("blasting"))
+
+
+
+
+
+2) Different types of alignments:
+- global alignment of 2 sequences = aligning two whole sequences
+- local alignment of 2 sequences = aligning part of one string with part of another string 
+- freeshift alignment of 2 sequences = aligning part of one string with whole other string or aligning prefix of one string with suffix of another string 
+
+
+
+
+
+3) Gap penalties:
+- constant gap penalty:: each gap has identical costs, independent of its length
+- linear gap penalty: depends linearly on the size of a gap
+- affine gap penalty: They favor few long gaps over man small gaps. They use a gap opening penalty, go, and a gap extension penalty, ge, with |ge|<|go|, to encourage gap extension rather than gap introduction.
+(-> in biological sequences, it is more likely that a one big gap (f.e. length 10) occurs in a sequence than many small gaps (10 of length 1)
+
+
+
+
+4) Needleman-Wunsch algorithm:
+- global alignment
+- the algorithm is attempting to match as much of the sequence as possible
+- (example of dynamic programming) 
+
+- basic idea: build up the best alignment by using optimal alignments of smaller sequences 
+
+- Scoring system: 
+- given a (protein) substitution matrix (BLOSUM62, PAM250, ...) 
+- given a gap penalty 
+
+-> calculate a score matrix and a traceback matrix 
+
+(sequence1 = x, sequence2 = y)
+
+- score matrix: S(i,j) = max {S(i-1,j-1)+r(xi, yi), S(i-1,j)+gap, S(i,j-1)+gap}
+- score matrix: 0.row and 0.column are initialized with gap*k whereby k is the number of rows/columns
+- traceback matrix: fill in with arrows where your score is calculated from (diagonal, left, upper matrix entry)
+
+-> deducing the alignment from the traceback matrix to be filled with the score (the bottom right most cell in the traceback matrix) 
+-> sequences are aligned backwards 
+
+
+
+
+
+5) Smith-Waterman algorithm:
+- local alignment 
+- useful for comparing protein sequences that share a common motif (conserved pattern) or domain but differ elsewhere
+
+- basic idea: we look at long matching areas, independent of how long mismatching areas are between them 
+
+- Scoring system: 
+- given a (protein) substitution matrix (BLOSUM62, PAM250, ...) 
+- given a gap penalty
+
+-> calculate a score matrix and a traceback matrix 
+
+(sequence1 = x, sequence2 = y)
+
+- score matrix: S(i,j) = max {S(i-1,j-1)+r(xi, yi), S(i-1,j)+gap, S(i,j-1)+gap, 0} (-> no negative matrix entries) 
+- score matrix: 0.row and 0.column are initialized with 0
+
+- traceback matrix: fill in with arrows where your score is calculated from (diagonal, left, upper matrix entry)
+
+-> deducing the alignment from the traceback matrix to be filled with the score (begin with the highest score in the matrix and end if a 0 is reached) 
+-> sequences are aligned backwards 
+
+
+
+
+
+6) Smith-Waterman Freeshift algorithm:
+- freeshift alignment
+
+- Scoring system: 
+- given a (protein) substitution matrix (BLOSUM62, PAM250, ...) 
+- given a gap penalty
+
+-> calculate a score matrix and a traceback matrix 
+
+(sequence1 = x, sequence2 = y)
+
+- score matrix: S(i,j) = max {S(i-1,j-1)+r(xi, yi), S(i-1,j)+gap, S(i,j-1)+gap, 0} (-> no negative matrix entries) 
+- score matrix: 0.row and 0.column are initialized with 0
+
+- traceback matrix: fill in with arrows where your score is calculated from (diagonal, left, upper matrix entry)
+
+-> deducing the alignment from the traceback matrix to be filled with the score (begin with the highest score in the last column or last row and end if a 0 is reached) 
+-> sequences are aligned backwards
+
+
+
+
+
+7) Differences NW, SW and SW Freeshift: 
+
+- global alignment in NW <-> local alignment in SW <-> freeshift alignment in SW Freeshift 
+- negative scores in NW <-> only positive scores in SW and SW Freeshift
+- deducing the alignment: beginning in traceback matrix: in the bottom right most cell in NW <-> at the highest score in SW <-> at the highest score in the last row or last column
+
+
+
+
+8) Gotoh global algorithm: 
+
+- Scoring system: 
+- given a (protein) substitution matrix (BLOSUM62, PAM250, ...) 
+- given an affine gap penalty: go + ge * k (k = number of row/column) 
+
+-> calculate three score matrices and one traceback matrix
+
+(sequence1 = s, sequence2 = t)
+
+- score matrix I (insertion): max { A(i-1,j) + go + ge, I(i-1,j) + ge } -> score of the optimal alignment of the prefixes in s(i) and t(j) ,which ends with a gap in t (insertion)
+- score matrix D (deletion): max { A(i,j-1) + go + ge, D(i,j-1) + ge } -> score of the optimal alignment of the prefixes in s(i) and t(j) ,which ends with a gap in s (deletion) 
+- score matrix A (optimal alignment): max { A(i-1,j-1) + S(si,tj), D(i,j) , I(i,j) } -> score of the optimal alignment of the prefixes in s(i) and t(i) 
+
+- initialization:
+- score matrix I: I(0,j) = -Inf
+- score matrix D: D(i,0) = -Inf 
+- score matrix A: A(0,k) = A(k,0) = g(k) = go + ge*k
+
+- traceback matrix: 
+   - if A(i,j) = A(i-1,j-1) + S(si,tj) -> search at A(i-1,j-1)
+   - if A(i,j) = I(i,j) -> search k, so that A(i-k,j) +g(k) = A(i,j)
+   - if A(i,j) = D(i,j) -> search k, so that A(i,j-k) +g(k) = A(i,j)
+
+
+
+
+
+9) Gotoh local algorithm:
+
+- Scoring system: 
+- given a (protein) substitution matrix (BLOSUM62, PAM250, ...) 
+- given an affine gap penalty: go + ge * k (k = number of row/column) 
+
+-> calculate three score matrices and one traceback matrix
+
+(sequence1 = s, sequence2 = t)
+
+- score matrix I (insertion): max { A(i-1,j) + go + ge, I(i-1,j) + ge, 0} -> score of the optimal alignment of the prefixes in s(i) and t(j) ,which ends with a gap in t (insertion)
+- score matrix D (deletion): max { A(i,j-1) + go + ge, D(i,j-1) + ge, 0} -> score of the optimal alignment of the prefixes in s(i) and t(j) ,which ends with a gap in s (deletion) 
+- score matrix A (optimal alignment): max { A(i-1,j-1) + S(si,tj), D(i,j) , I(i,j), 0} -> score of the optimal alignment of the prefixes in s(i) and t(i) 
+
+- initialization:
+- score matrix I: I(0,j) = -Inf (-Inf causes the value from A to always be used for row 0) 
+- score matrix D: D(i,0) = -Inf (-Inf causes the value from A to always be used for column 0) 
+- score matrix A: A(0,k) = A(k,0) = 0
+
+-> deducing the alignment from the traceback matrix to be filled with the score (begin with the highest score in the matrix and end if a 0 is reached) 
+
+- traceback matrix: 
+   - if A(i,j) = A(i-1,j-1) + S(si,tj) -> search at A(i-1,j-1)
+   - if A(i,j) = I(i,j) -> search k, so that A(i-k,j) +g(k) = A(i,j) 
+   - if A(i,j) = D(i,j) -> search k, so that A(i,j-k) +g(k) = A(i,j)
+
+
+
+
+
+10) Gotoh freeshift algorithm: 
+
+- Scoring system: 
+- given a (protein) substitution matrix (BLOSUM62, PAM250, ...) 
+- given an affine gap penalty: go + ge * k (k = number of row/column) 
+
+-> calculate three score matrices and one traceback matrix
+
+(sequence1 = s, sequence2 = t)
+
+- score matrix I (insertion): max { A(i-1,j) + go + ge, I(i-1,j) + ge, 0} -> score of the optimal alignment of the prefixes in s(i) and t(j) ,which ends with a gap in t (insertion)
+- score matrix D (deletion): max { A(i,j-1) + go + ge, D(i,j-1) + ge, 0 } -> score of the optimal alignment of the prefixes in s(i) and t(j) ,which ends with a gap in s (deletion) 
+- score matrix A (optimal alignment): max { A(i-1,j-1) + S(si,tj), D(i,j) , I(i,j), 0} -> score of the optimal alignment of the prefixes in s(i) and t(i) 
+
+- initialization:
+- score matrix I: I(0,j) = -Inf (-Inf causes the value from A to always be used for row 0) 
+- score matrix D: D(i,0) = -Inf (-Inf causes the value from A to always be used for column 0)
+- score matrix A: A(0,k) = A(k,0) = 0
+
+-> deducing the alignment from the traceback matrix to be filled with the score (begin with the highest score at the last row/last column in the matrix and end if a 0 is reached) 
+
+- traceback matrix: 
+   - if A(i,j) = A(i-1,j-1) + S(si,tj) -> search at A(i-1,j-1)
+   - if A(i,j) = I(i,j) -> search k, so that A(i-k,j) +g(k) = A(i,j) 
+   - if A(i,j) = D(i,j) -> search k, so that A(i,j-k) +g(k) = A(i,j)
+
+
+
+

@@ -1,0 +1,18 @@
+{% include 'generic_header.html' %}
+<div><pre>{{error_notice}}</pre>
+</div>
+{%if ali_output %}
+<div style = "font-size:15px; position:relative; left:70px; top:90px; font-family: Helvetica, sans-serif">
+    <h2>Sequence Alignment</h2>
+    <pre>{{ali_output}}</pre>
+</div>
+
+{% else %}
+{{form}}
+
+<!-- <div style = "position:relative; left:70px; top:100px; font-family: Helvetica, sans-serif">
+     <pre>{{error}}</pre>
+</div>-->
+
+{% endif %}
+{% include 'generic_footer.html' %}

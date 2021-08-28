@@ -1,0 +1,39 @@
+                                       Vor- und Nachteile von DP bezüglich Rekursion
+Vorteile DP:
+Rekursiver Code, daher nicht viele Codezeilen nötig.
+Sparen an Rechenzeit aufgrund von Abspeichern von Teillösungen
+Lokale und gesamte optimale Lösungen berrechenbar
+
+
+
+Nachteile DP:
+Erhöhter Speicherplatzverbrauch (Stack memory) und höhere Laufzeit aufgrund von Divide- und Conquer
+Speichern von nicht verwendeten Informationen
+Problemspezifisch und nicht immer allgemein anwendbar
+
+
+
+
+Vorteile Rekursion:
+Code leichter zu schreiben
+Unnötiges wiederholtes Aufrufen von Funktionen kann vermieden werden
+
+
+
+Nachteile Rekursion:
+Abstrakt und mathematisch
+Wiederholtes Lösen von Teilproblemen
+
+
+
+                                  Insgesamte Laufzeit und Speicherplatz für Berechnung und Implementierung
+
+DP:
+Die Laufzeit bei Needleman-Wunsch beträgt O(n*m), wobei n die Länge von Sequenz A und m die Länge von Sequenz B ist. 
+Quadratischer Speicherbedarf daher ist der Algorithmus für das Alignieren längerer Sequenzen eher ungeeignet.
+
+Rekursion:
+Die Laufzeit und der Speicherplatz sind abhängig von der jeweils verwendeten Funktion. Am Beispiel der Fibonaccifolge beträgt die Laufzeit O(2^n).
+Der Speicherplatz ist proportional zur maximalen Tiefe des Rekursionsbaumes.
+
+

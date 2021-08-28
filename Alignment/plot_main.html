@@ -1,0 +1,31 @@
+{% include 'generic_header.html' %}
+{%if ali_output %}
+<div style="width: 700px; display: inline-block; word-break: break-word; position:relative; font-size: 13px; right:70px; left:70px; top:150px; font-family: Helvetica, sans-serif">
+<pre>
+<figure>
+<img src="./uploads/sens_spec.png" width="700">
+<img src="./uploads/coverage.png" width="700">
+<img src="./uploads/score.png" width="700">
+<img src="./uploads/MSE_seqid.png" width="700">
+<img src="./uploads/ROC.png" width="700">
+<img src="./uploads/precision_and_recall.png" width="700">
+<figcaption></figcaption>
+</figure>
+<!--{{ali_output}}-->
+</pre>
+</div>
+
+{% else %}
+
+<div style = "position: relative; left:70px; top:70px; font-family: Helvetica, sans-serif">
+<form action="./Plots_main.py" method="POST" enctype="multipart/form-data">
+<b><label>Please upload your file:</label></b></br></br>
+File: <input name = "file1" type = "file">
+<button type="submit">Submit</button>
+</form>
+</div>
+</div>
+
+{% endif %}
+
+{% include 'generic_footer.html' %}
