@@ -52,20 +52,9 @@ for row in rows:
         break
 
     if row.startswith("ATOM"):
-
-        #atom_row = []
-        #atom_row.append("ATOM")                             # Zeilentitel
-        #atom_row.append(row[6:11].strip())                  # Atom Serien Nummer
-        #atom_row.append(row[12:16].strip())                 # Atom Name
-        #atom_row.append(row[16].strip())
-        #atom_row.append(aa_dict.get(row[17:20].strip()))    # Aminosaeure Name
         aa = aa_dict.get(row[17:20].strip())
         #print(aa)
-
-        #atom_row.append(row[21].strip())                    # Chain (A, B, C)
         aa_chain = row[21].strip()
-
-        #atom_row.append(row[22:26].strip())                 # AS Nummer
         aa_nr = int(row[22:26].strip())
 
         if aa_chain != last_aa_chain and not aa_seq == "":
@@ -84,29 +73,10 @@ for row in rows:
         if aa_nr < min_aa_nr:
             min_aa_nr = aa_nr
 
-
-
-
-
-        #atom_row.append(row[26].strip())
-        #atom_row.append(row[30:38].strip())                 # x
-        #atom_row.append(row[38:46].strip())                 # y
-        #atom_row.append(row[46:54].strip())                 # z
-        #atom_row.append(row[54:60].strip())
-        #atom_row.append(row[60:66].strip())
-        #atom_row.append(row[76:78].strip())
-        #atom_row.append(row[78:80].strip())
-
-
-
     elif row.startswith("SHEET"):
         # print(row)
 
         atom_row = []
-        #atom_row.append("SHEET")
-        #atom_row.append(row[7:11].strip())      # Sheet nummerierung
-        #atom_row.append(row[11:14].strip())     # Sheet identifier
-        #atom_row.append(row[14:16].strip())
         atom_row.append(aa_dict.get(row[17:20].strip()))     # Start AS
 
 
@@ -116,21 +86,6 @@ for row in rows:
         atom_row.append(aa_dict.get(row[28:31].strip()))     # End AS
         atom_row.append(row[32].strip())        # Strang End AS
         atom_row.append(row[33:37].strip())     # Position End AS
-        #atom_row.append(row[37].strip())
-        #atom_row.append(row[38:40].strip())
-        #atom_row.append(row[41:45].strip())
-        #atom_row.append(row[45:48].strip())
-        #atom_row.append(row[49].strip())
-        #atom_row.append(row[50:54].strip())
-        #atom_row.append(row[54].strip())
-        #atom_row.append(row[56:60].strip())
-        #atom_row.append(row[60:63].strip())
-        #atom_row.append(row[64].strip())
-        #atom_row.append(row[65:69].strip())
-        #atom_row.append(row[69].strip())
-
-        #print(atom_row)
-
         sheet.append(atom_row)
 
 
@@ -138,20 +93,12 @@ for row in rows:
     elif row.startswith("HELIX"):
 
         atom_row = []
-        #atom_row.append("HELIX")
-        #atom_row.append(row[7:10].strip())
-        #atom_row.append(row[11:14].strip())
         atom_row.append(aa_dict.get(row[15:18].strip()))     #start AS
         atom_row.append(row[19].strip())        # Strag start
         atom_row.append(row[21:25].strip())     # position start
-        #atom_row.append(row[25].strip())
         atom_row.append(aa_dict.get(row[27:30].strip()))     # ende AS
         atom_row.append(row[31].strip())        # Strang ende
         atom_row.append(row[33:37].strip())     # position ende
-        #atom_row.append(row[37].strip())
-        #atom_row.append(row[38:40].strip())
-        #atom_row.append(row[40:70].strip())
-        #atom_row.append(row[71:76].strip())
 
         helix.append(atom_row)
 
