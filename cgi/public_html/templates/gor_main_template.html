@@ -1,0 +1,42 @@
+{% include 'generic_header.html' %}
+
+{%if pred_output %}
+
+<pre>
+<div style="position:relative; font-size: 15px; right:70px; left:70px; top:150px;"> 
+Prediction:
+{{pred_output}}
+</pre>
+</div>
+
+{% else %}
+
+<div style = "position:relative; left:70px; top:100px; font-family: Helvetica, sans-serif">      
+
+<form action="./gor_main.py" method="POST" enctype="multipart/form-data">
+Please provide a sequence file: <input name="seq_file" type="file"></br></br>
+<!-- <option name="id_seq" value="id_seq">Seq ID</option>
+<option name="paste_seq" value="paste_seq">Text input</option></select> -->
+Please select the GOR version you would like to run:
+<select name="option_GOR">
+<option name="gor1" value="gor1">GOR I</option>
+<option name="gor3" value="gor3">GOR III</option>
+<option name="gor4" value="gor4">GOR IV</option></br></br>
+<option name="gor5" value="gor5">GOR V</option></br></br>
+</select></br></br>
+Show probabilities?
+<select name="option_probs">
+<option name="yes" value="yes">yes</option>
+<option name="no" value="no">no</option>
+</select></br></br>
+Please provide a reference file for the secondary structure <input name="ss_file" type="file"></br></br>
+<!-- <option name="id_ss" value="id_ss">Seq ID</option>
+<option name="paste_ss" value="paste_ss">Text input</option></select> -->
+<button type="submit">Submit Selection</button> 
+</form>
+</div>
+
+{% endif %}
+
+{% include 'generic_footer.html' %}
+

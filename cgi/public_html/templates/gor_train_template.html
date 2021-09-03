@@ -1,0 +1,29 @@
+{% include 'generic_header.html' %}
+
+{%if output %}
+
+    
+<div style="position:relative; font-size: 13px; right:70px; left:70px; top:150px; font-family: Helvetica, sans-serif">
+<a href="./uploads/model_trained.tsv" download>Download model file</a>
+</div>
+
+{% else %}
+
+<div style = "position:relative; left:70px; top:100px; font-family: Helvetica, sans-serif">      
+
+<form action="./gor_train_main.py" method="POST" enctype="multipart/form-data">
+Please upload a training set: <input name="train_file" type="file"></br></br>
+Please select the GOR version you would like to run:
+<select name="option_GOR">
+<option name="gor1" value="gor1">GOR I</option>
+<option name="gor3" value="gor3">GOR III</option>
+<option name="gor4" value="gor4">GOR IV</option></br></br>
+</select></br></br>
+<button type="submit">Submit Selection</button> 
+</form>
+</div>
+
+{% endif %}
+
+{% include 'generic_footer.html' %}
+

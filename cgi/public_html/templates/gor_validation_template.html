@@ -1,0 +1,30 @@
+{% include 'generic_header.html' %}
+
+{%if output %}
+
+
+<div style="position:relative; font-size: 13px; right:70px; left:70px; top:150px; font-family: Helvetica, sans-serif">
+<a href="./uploads/detail_validation.txt" download>Download detailed</a>
+<a href="./uploads/summary_validation.txt" download>Download summary</a>
+
+<figure>
+<img src="barplots_gor.png" width="700">
+<figcaption></figcaption>
+</figure>
+</div>
+
+{% else %}
+
+<div style = "position:relative; left:70px; top:100px; font-family: Helvetica, sans-serif">  
+
+<form action="./gor_validation_main.py" method="POST" enctype="multipart/form-data">
+Please upload a prediction set: <input name="org_file" type="file"></br></br>
+Please upload a reference set: <input name="feat_file" type="file"></br></br>
+</select></br></br>
+<button type="submit">Submit Selection</button>
+</form>
+</div>
+
+{% endif %}
+
+{% include 'generic_footer.html' %}

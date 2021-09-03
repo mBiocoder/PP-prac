@@ -1,0 +1,41 @@
+{% include 'generic_header.html' %}
+
+{%if pred_output %}
+    
+<div style="width: 700px; display: inline-block; word-break: break-word; position:relative; font-size: 13px; right:70px; left:70px; top:150px; font-family: Helvetica, sans-serif">
+<pre>
+<p>Prediction:</p>
+{{pred_output}}
+</pre>
+</div>
+
+{% else %}
+
+<div style = "position: relative; left:70px; top:100px; font-family: Helvetica, sans-serif">      
+<form action="./gor_textinput_main.py" method="POST" enctype="multipart/form-data">
+<label for="seq">Please provide a sequence:</label></br></br>
+<textarea id="seq" name="seq" rows="5" cols="70">
+</textarea><br><br> 
+Please select the GOR version you would like to run:   
+<select name="option_GOR">
+<option name="gor1" value="gor1">GOR I</option>
+<option name="gor3" value="gor3">GOR III</option>
+<option name="gor4" value="gor4">GOR IV</option></br></br>
+<option name="gor5" value="gor5">GOR V</option></br></br>
+</select></br></br>
+Show probabilities?
+<select name="option_probs">
+<option name="yes" value="yes">yes</option> 
+<option name="no" value="no">no</option>
+</select></br></br>
+<label for="ss">Please provide a reference secondary structure:</label></br></br>
+<textarea id="ss" name="ss" rows="5" cols="70">
+</textarea><br><br> 
+<button type="submit">Submit Selection</button> 
+</form>
+</div>
+
+{% endif %}
+
+{% include 'generic_footer.html' %}
+
