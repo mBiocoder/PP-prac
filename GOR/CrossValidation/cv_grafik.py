@@ -10,7 +10,7 @@ import numpy as np
 parser = ap.ArgumentParser()
 parser.add_argument('--input', type=ap.FileType('r'), required=True)
 
-# 'C:/Users/leona/OneDrive/Desktop/Blatt2/Aufgabe14/2019_Feb'
+# 'C:/Users/SomeUser/OneDrive/Desktop/Blatt2/Aufgabe14/2019_Feb'
 args = parser.parse_args()
 
 #inp = "SOV	gor1	fold 0	57.34\nQ3	gor1	fold 0	61.74\nSOV	gor1	fold 1	48.91\nQ3	gor1	fold 1	59.82\nSOV	gor1	fold 2	47.5\nQ3	gor1	fold 2	59.42\nSOV	gor1	fold 3	46.92\nQ3	gor1	fold 3	59.38\nSOV	gor1	fold 4	46.83\nQ3	gor1	fold 4	59.41\nSOV	gor1	mean  	49.5\nQ3	gor1	mean  	59.95\nSOV	gor3	fold 0	51.8\nQ3	gor3	fold 0	61.66\nSOV	gor3	fold 1	48.35\nQ3	gor3	fold 1	60.06\nSOV	gor3	fold 2	47.1\nQ3	gor3	fold 2	59.55\nSOV	gor3	fold 3	46.96\nQ3	gor3	fold 3	59.6\nSOV	gor3	fold 4	46.91\nQ3	gor3	fold 4	59.54\nSOV	gor3	mean  	48.22\nQ3	gor3	mean  	60.08\nSOV	gor4	fold 0	46.13\nQ3	gor4	fold 0	59.0\nSOV	gor4	fold 1	46.09\nQ3	gor4	fold 1	58.98\nSOV	gor4	fold 2	45.5\nQ3	gor4	fold 2	58.93\nSOV	gor4	fold 3	45.89\nQ3	gor4	fold 3	59.14\nSOV	gor4	fold 4	46.15\nQ3	gor4	fold 4	59.17\nSOV	gor4	mean  	45.95\nQ3	gor4	mean  	59.04"
@@ -109,7 +109,7 @@ plt.title("Q3")
 #ax.set_xticklabels(["F0", "F1", "F2", "F3", "F4", "mean"])
 
 plt.legend()
-plt.savefig('C:/Users/leona/OneDrive/Desktop/q3.png')
+plt.savefig('C:/Users/SomeUser/OneDrive/Desktop/q3.png')
 
 
 ###############################################################################
@@ -150,4 +150,4 @@ plt.title("SOV")
 #ax.set_xticklabels(["F0", "F1", "F2", "F3", "F4", "mean"])
 
 plt.legend()
-plt.savefig('C:/Users/leona/OneDrive/Desktop/sov.png')
+plt.savefig('C:/Users/SomeUser/OneDrive/Desktop/sov.png')
